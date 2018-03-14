@@ -13,11 +13,15 @@ import com.stitchlite.entity.Product;
 public class MerchantStoreDAO {
 	@PersistenceContext
     private EntityManager em;
+	
+	/**
+	 * Get all the stores by merchant id
+	 * @param merchantID
+	 * @return
+	 */
 	public List<MerchantStore> getAllStoresByMerchantID(long merchantID) {
-		
-		
-		 String query = "select * from merchant_store where merchant_id = "+merchantID;
-		 List<MerchantStore> stores = em.createNativeQuery(query).getResultList();
+		 String query = "select * from merchant_store where merchantid = "+merchantID;
+		 List<MerchantStore> stores = em.createNativeQuery(query, MerchantStore.class).getResultList();
 		 return stores;
 	}
 	

@@ -2,9 +2,7 @@ package com.stitchlite.dao;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-
 import org.springframework.stereotype.Repository;
-
 import com.stitchlite.entity.Store;
 @Repository
 public class StoreDAO {
@@ -16,5 +14,7 @@ public class StoreDAO {
 		return store;
 		
 	}
+	
+
 	
 }

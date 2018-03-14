@@ -13,8 +13,10 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.util.EntityUtils;
+import org.jboss.logging.Logger;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import com.stitchlite.entity.Product;
@@ -25,7 +27,9 @@ import com.stitchlite.entity.ProductDetail;
 import com.stitchlite.entity.Store;
 import com.stitchlite.entity.Variant;
 
-public class StoreProductAPIServiceShopifyImpl implements StoreProductAPIService{
+public class StoreProductAPIShopifyImpl implements StoreProductAPI{
+	Logger logger = Logger.getLogger(StoreProductAPIShopifyImpl.class);
+	
 	private String products = "products";
 	private String name = "title";
 	private String description = "body_html";
@@ -37,28 +41,23 @@ public class StoreProductAPIServiceShopifyImpl implements StoreProductAPIService
 	
 	@Override
 	public List<ProductDetail> getAllProducts(Store store) {
-		
-		/*String apikey = store.getClientID();
-		String password = store.getClientSecret();
-		String storeUrl = store.getBaseStoreUrl(); */
-		
-		//temporary hardcoding for 1 store - in future details will be stored in DB and available in store obj
 	
-        String apikey = "86801bdba2050e40df1fd39866bd79de";
-        String password	 =	"d4bb910a4da9f050d6426d15bc526326";
-        String storeUrl = "rarity-sf.myshopify.com";
+		
+		String apikey = store.getClientID();
+		String password = store.getClientSecret();
+		String storeUrl = store.getBaseStoreUrl(); 
+
         baseUrl = baseUrl.replace("apikey", apikey);
         baseUrl = baseUrl.replace("password", password);
         baseUrl = baseUrl.replace("storeUrl", storeUrl);
-		
-		System.out.println("base url ********* "+ baseUrl);
+
         List<ProductDetail>  productsList = new ArrayList();
         try {
  
         HashMap<String,String> headers = new HashMap<String,String>();
         HttpResponse response = new HttpClientUtil().httpGetRequest(baseUrl,headers);
 		String responseAsString = EntityUtils.toString(response.getEntity());
-		System.out.println(responseAsString);
+		logger.info(responseAsString);
 		
 		JSONObject productsJson = new JSONObject(responseAsString);
 		
@@ -69,7 +68,6 @@ public class StoreProductAPIServiceShopifyImpl implements StoreProductAPIService
 			
 			JSONObject productJson = productsArr.getJSONObject(i);
 			Product product = new ProductBuilder().
-					//merchantID()
 					name(productJson.getString(name)).
 					description(productJson.getString(description))
 					.build();
@@ -86,13 +84,15 @@ public class StoreProductAPIServiceShopifyImpl implements StoreProductAPIService
             		 				qty(variantJson.getInt(qty)).
             		 				build();  
                   variantList.add(variant);
+                  
+                  
 	         }
 					
 			 productsList.add(new ProductDetail(product, variantList));
 		}
 			
 		}catch(Exception e) {
-			System.out.println("Exception "+e.getMessage());
+			logger.error("Exception "+e.getMessage());
 		}
 	
 		return productsList;

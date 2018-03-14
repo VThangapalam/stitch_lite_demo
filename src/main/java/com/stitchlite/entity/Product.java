@@ -16,6 +16,10 @@ public class Product {
 	private String name;
 	private String description;
 	
+	public Product() {
+		
+	}
+	
 	public Product(String name,String description) {
 		this.name = name;
 		this.description = description;
@@ -109,7 +113,9 @@ public class Product {
 	}
 	
 	public String toString() {
-	    return  "{ name:" + name + ",decription: " + description +" varaints : [varaintJSONSting]}";
+		
+	    String productStr=  " \"name\":\"" + name + "\",\"decription\":\"" + description +"\",\"variants\": [varaintJSONSting]";
+	    return productStr;
 	}
 	
 }

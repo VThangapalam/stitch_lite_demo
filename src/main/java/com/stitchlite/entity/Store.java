@@ -13,8 +13,8 @@ public class Store {
 	private String storeName;
 	private String clientID;
 	private String clientSecret;
-	private String accessToken;
-	private String refreshToken;
+	//private String accessToken;
+	//private String refreshToken;
 	private String storeType;
 	private String baseStoreUrl;
 	
@@ -43,18 +43,7 @@ public class Store {
 	public void setClientSecret(String clientSecret) {
 		this.clientSecret = clientSecret;
 	}
-	public String getAccessToken() {
-		return accessToken;
-	}
-	public void setAccessToken(String accessToken) {
-		this.accessToken = accessToken;
-	}
-	public String getRefreshToken() {
-		return refreshToken;
-	}
-	public void setRefreshToken(String refreshToken) {
-		this.refreshToken = refreshToken;
-	}
+	
 	public String getStoreType() {
 		return storeType;
 	}

@@ -33,7 +33,8 @@ public class ProductDetail {
 	}
 	
 	public String toString() {
-	    String productString =  "{ product: "+product.toString() +"}";
+	    //String productString =  "product: "+product.toString() ;
+		String productString =  "{"+product.toString()+"}";
 	    StringBuffer variantsStr = new StringBuffer();
 	    int varListLen = variants.size();
 	    for(int i =0; i< varListLen;i++) {
@@ -43,7 +44,7 @@ public class ProductDetail {
 	    	}	    	
 	    }
 	    
-	    
+	  //  System.out.print("prod det "+productString.replace("varaintJSONSting", variantsStr.toString()));
 	    return productString.replace("varaintJSONSting", variantsStr.toString());
 	}
 	

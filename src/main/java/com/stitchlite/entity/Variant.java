@@ -18,6 +18,19 @@ public class Variant {
 	private int qty;
 	private double price;
 	private long parentProductID;
+	private String storeReferenceID;
+	
+	public String getStoreReferenceID() {
+		return storeReferenceID;
+	}
+
+	public void setStoreReferenceID(String storeReferenceID) {
+		this.storeReferenceID = storeReferenceID;
+	}
+
+	public Variant() {
+		
+	}
 	
 	public Variant(String sku, double price, int qty) {
 		this.sku = sku;
@@ -32,6 +45,7 @@ public class Variant {
 		    this.qty = builder.qty;
 		    this.price = builder.price;
 		    this.parentProductID = builder.parentProductID;
+		    storeReferenceID =builder.storeReferenceID;
 		  }
 	
 	public long getVariantID() {
@@ -79,6 +93,7 @@ public class Variant {
 		private int qty;
 		private double price;
 		private long parentProductID;
+		private String storeReferenceID;
 		
 		public VariantBuilder variantID(long variantID) {
 		      this.variantID = variantID;
@@ -112,6 +127,11 @@ public class Variant {
 		      return this;
 		}
 		
+		
+		public VariantBuilder storeReferenceID(String storeReferenceID) {
+		      this.storeReferenceID = storeReferenceID;
+		      return this;
+		}
 		 public Variant build() {
 		      return new Variant(this);
 		    }
@@ -121,7 +141,7 @@ public class Variant {
 	
 	
 	public String toString() {
-	    return "{sku:" + sku + ",price:" + price +
-		       ", qty:" + qty +"}";
+	    return "{\"sku\":\"" + sku + "\",\"price\":" + price +
+		       ", \"qty\":" + qty +"}";
 	}
 }
